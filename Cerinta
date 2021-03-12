@@ -1,0 +1,55 @@
+Tema 2 - Skyroads
+
+În cadrul temei 2 trebuie să implementați o versiune modificată a jocului Skyroads.
+
+Gameplay
+Spre deosebire de jocul original, care este structurat pe mai multe niveluri finite, jocul pe care îl veți 
+implementa va fi un endless runner. Harta se va genera aleator pe minim trei coloane (benzi) de mers astfel 
+încât să nu devină imposibil pentru jucător să treacă peste un anumit spațiu, iar jucătorul se va deplasa doar 
+înainte, având posibilitatea să își schimbe viteza de deplasare și coloana de mers.
+În timpul jocului, jucătorul va trebui să țină constant cont de cantitatea de combustibil pe care o mai are. 
+Cantitatea de combustibil va scădea treptat odată cu deplasarea. În momentul în care rămâne fără combustibil, 
+jocul se va termina. Jocul se poate termina, de asemenea, și dacă jucătorul cade de pe o platformă (în cazul acesta
+va fi necesară o animație prin care jucătorul cade din scenă - de exemplu, personajul va cădea o distanță prestabilită
+și apoi va dispărea din scenă. Orice altă idee de animație care să simbolizeze sfârșitul jocului și dispariția 
+jucătorului este binevenită).
+Vor exista de asemenea platforme care vor aduce beneficii sau dezavantaje jucătorului dacă aterizează pe ele. Un astfel 
+de exemplu este platforma de recăpătare a combustibilului pierdut în timpul jocului.
+
+Harta
+Se va genera aleator prin plasarea în scenă a mai multor platforme poziționate pe mai multe coloane (minim 3, dar puteți 
+să vă definiți și mai multe). Aceste platforme pot fi reprezentate prin cuburi de culori și dimensiuni diferite, scalate 
+astfel încât să fie subțiri pe y, pe x să aibă dimensiunea unei coloane, iar pe z să fie o valoare aleatoare. Cuburile 
+nou generate vor fi mereu generate/afișate inițial în scenă la aceeași distanță de jucător pe axa OZ (este la latitudinea
+voastră cât setați această distanță), iar în timp cuburile care vor ieși din scenă în spatele jucătorului nu vor mai fi redate.
+Puteți genera platforme în același timp pentru oricâte coloane. Este la latitudinea voastră câte cuburi redați la un moment 
+dat în scenă. Singura condiție este să nu creați situații când distanța dintre oricare două platforme este prea mare și jucătorul
+nu poate sări pe o altă platformă.
+În imaginea de mai jos, puteți vedea câteva exemple de generare de scene. Se poate observa că sunt 2 modalități de a vă defini 
+coloanele: fie le gândiți încă de la început cu o anumită distanță între ele, fie le gândiți ca fiind lipite. Astfel, în prima 
+situație veți avea în permanență spații între platformele laterale, iar în cel de-al doilea caz puteți avea și platforme lipite 
+intre ele. Între două platforme de pe aceeași coloană veți avea un spațiu de o dimensiune aleatoare.
+
+Jucătorul
+Acesta va fi reprezentat de o sferă. În momentul în care sfera aterizează pe o platformă specială, care acordă power-ups, aceasta 
+va fi deformată în Vertex Shader. De exemplu puteți să aplicați o funcție de zgomot pe direcția normalelor vârfurilor (exemplu în
+imaginea de mai jos). Animația de deformare va înceta în momentul în care expiră abilitatea luată de jucător.
+
+Controlul Jucătorului
+Jucătorul va fi controlat prin tastele WASD și SPACE. Folosind A și D, va schimba coloanele de mers, tasta SPACE va fi 
+folosită pentru a sări peste spații, iar W și S pentru a alege viteza de mers. Viteza maximă pe care o poate atinge jucătorul o 
+puteți alege voi. Folosind tasta C, se va oscila între modurile de joc first și third person camera.
+
+Interfața cu Utilizatorul
+Jucătorul trebuie să țină în permanență cont de cantitatea de combustibil pe care o mai are. De aceea este important să poată 
+vedea acest aspect pe ecran. Pentru acest lucru se vor folosi două dreptunghiuri suprapuse afișate într-un colț al ecranului 
+(unul alb/negru în spate și unul colorat în față, pe care îl veți scala pentru a evidenția consumarea combustibilului).
+
+Platforme cu Avantaje/Dezavantaje
+În cadrul jocului vor exista două tipuri de platforme: simple și cu efecte. Platformele simple vor fi de culoare albastră. 
+Platformele care vor acorda jucătorului abilități sau dezavantaje vor fi colorate astfel:
+  Roșu: jocul se termină instant
+  Galben: jucătorul pierde o parte din combustibil
+  Portocaliu: jucătorul este blocat un anumit număr de secunde la o viteză foarte mare (tastele W și S nu au niciun efect în această perioadă)
+  Verde: jucătorul recuperează o parte din combustibil
+  Orice platformă pe care jucătorul aterizează își va schimba culoarea în mov.
